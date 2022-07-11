@@ -1,5 +1,17 @@
-export default function Search() {
+import React from "react";
+
+export default function Search(props) {
+
   return (
-    <h1>Searchbar</h1>
+    <div>
+      <input 
+        type="text"
+        placeholder="Enter City"
+        name="city"
+        value={props.city}
+        onChange={props.handleChange}
+      />
+      <button onClick={props.handleClick}>Forecast!</button>
+    </div>
   )
 }
