@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import axios from 'axios';
 import Search from './components/Search';
+import DayPreview from './components/DayPreview';
 
 function App() {
 
@@ -19,8 +20,12 @@ function App() {
   function createTimestampObject(entry) {
     const timestamp = {
       time: entry.dt,
-      temp: Math.round(entry.main.temp - 273.15),
-      weather: entry.weather[0].main
+      temp: Math.round(entry.main.temp - 273.15), // celsius
+      description: entry.weather[0].description,
+      clouds: entry.clouds.all,                   // percentage
+      wind: entry.wind.speed,                     // meters per second
+      precipitation: entry.pop * 100,             // percentage
+      humidity: entry.main.humidity              // percentage
     };
     return timestamp;
   }
@@ -96,6 +101,14 @@ function App() {
         handleClick={handleClick}
         city={city}
       />
+      {weatherData &&
+      <div className="day-previews">
+        <DayPreview />
+        <DayPreview />
+        <DayPreview />
+        <DayPreview />
+        <DayPreview />
+      </div>}
     </div>
   );
 }
