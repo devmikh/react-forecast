@@ -1,12 +1,13 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import Search from './components/Search';
 import DayPreview from './components/DayPreview';
 
 function App() {
 
-  const [city, setCity] = React.useState("");
+  const [city, setCity] = React.useState("Coquitlam");
   const [weatherData, setWeatherData] = React.useState([]);
 
   function handleChange(event) {
@@ -25,7 +26,8 @@ function App() {
       clouds: entry.clouds.all,                   // percentage
       wind: entry.wind.speed,                     // meters per second
       precipitation: entry.pop * 100,             // percentage
-      humidity: entry.main.humidity              // percentage
+      humidity: entry.main.humidity,
+      icon: entry.weather[0].icon.slice(0, -1)              // percentage
     };
     return timestamp;
   }
@@ -92,7 +94,19 @@ function App() {
           })
   }
 
-  
+  React.useEffect(() => {
+    getWeatherData();
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+
+  const dayPreviewElements = weatherData.map(day => {
+    const date = new Date(day.timestamps[0].time * 1000);
+    return <DayPreview
+            key={nanoid()}
+            weekday={date.getDay()}
+            date={date.getDate()}
+            timestamps={day.timestamps}
+          />;
+  });
 
   return (
     <div className="App">
@@ -103,11 +117,7 @@ function App() {
       />
       {weatherData &&
       <div className="day-previews">
-        <DayPreview />
-        <DayPreview />
-        <DayPreview />
-        <DayPreview />
-        <DayPreview />
+        {dayPreviewElements}
       </div>}
     </div>
   );
