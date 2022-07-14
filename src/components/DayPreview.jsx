@@ -1,23 +1,5 @@
 export default function DayPreview({day, handleClick}) {
 
-  const date = new Date(day.timestamps[0].time * 1000);
-
-  // Helper functions
-  function getMonthName() {
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-    ];
-    return monthNames[date.getMonth()]
-  }
-
-  function getDate() {
-    return date.getDate();
-  }
-
-  function getWeekday() {
-    const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    return weekdays[date.getDay()];
-  }
 
   function getHighestTemperature() {
     const temps = day.timestamps.map(timestamp => timestamp.temp);
@@ -35,11 +17,9 @@ export default function DayPreview({day, handleClick}) {
   // }
   // getAverageWeatherIcon();
 
-  
-
   return (
     <div className="day-preview" onClick={handleClick}>
-      <h2>{`${getWeekday()}, ${getMonthName()} ${getDate()}`}</h2>
+      <h2>{`${day.weekday}, ${day.month} ${day.date}`}</h2>
       <img
         className="day-preview--icon"
         src="https://openweathermap.org/img/wn/10d@4x.png"

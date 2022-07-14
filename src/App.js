@@ -10,8 +10,8 @@ function App() {
 
   const [city, setCity] = React.useState("Coquitlam");
   const [weatherData, setWeatherData] = React.useState([]);
-  const [currentDay, setCurrentDay] = React.useState();
-  const [currentTimestamp, setCurrentTimestamp] = React.useState();
+  const [selectedDay, setSelectedDay] = React.useState();
+  const [selectedTimestamp, setSelectedTimestamp] = React.useState();
 
   function handleChange(event) {
     setCity(event.target.value);
@@ -22,11 +22,24 @@ function App() {
   }
 
   function selectDay(day) {
-    setCurrentDay(day);
+    setSelectedDay(day);
   }
 
   function selectTimestamp(timestamp) {
-    setCurrentTimestamp(timestamp);
+    setSelectedTimestamp(timestamp);
+  }
+
+  // Helper functions
+  function getMonthName(date) {
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    ];
+    return monthNames[date.getMonth()]
+  }
+
+  function getWeekday(date) {
+    const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    return weekdays[date.getDay()];
   }
 
   function createTimestampObject(entry) {
@@ -53,7 +66,7 @@ function App() {
             for (let i = 0; i < response.data.list.length; i++) {
 
               let entry = response.data.list[i];
-              const currentTimestamp = new Date(entry.dt * 1000);
+              const currentDate = new Date(entry.dt * 1000);
 
               // First 8 timestamps get added to day 1 in any case
               if (i < 8) {
@@ -62,7 +75,9 @@ function App() {
                 if (i === 0) {
                   // Day object is created with date and month taken from current timestamp
                   const day = {
-                    date: currentTimestamp.getDate(),
+                    date: currentDate.getDate(),
+                    month: getMonthName(currentDate),
+                    weekday: getWeekday(currentDate),
                     timestamps: []
                   };
                   /*  Create timestamp object with all weather data related to this timestamp
@@ -75,12 +90,14 @@ function App() {
               }
               
               // Other timestamps get added to days 2, 3, 4 and 5, no further
-              if (currentTimestamp.getDate() > today.getDate() && currentTimestamp.getDate() < today.getDate() + 5) {
+              if (currentDate.getDate() > today.getDate() && currentDate.getDate() < today.getDate() + 5) {
                 
                 // If day object is missing in the array, create it
-                if (!days.some(day => day.date === currentTimestamp.getDate())) {
+                if (!days.some(day => day.date === currentDate.getDate())) {
                   const day = {
-                    date: currentTimestamp.getDate(),
+                    date: currentDate.getDate(),
+                    month: getMonthName(currentDate),
+                    weekday: getWeekday(currentDate),
                     timestamps: []
                   };
                   day.timestamps.push(createTimestampObject(entry));
@@ -90,7 +107,7 @@ function App() {
 
                   /* Search for a day object with the same date as the timestamp's
                   so we can add it to the correct day */
-                  const index = days.findIndex(day => day.date === currentTimestamp.getDate());
+                  const index = days.findIndex(day => day.date === currentDate.getDate());
                   days[index].timestamps.push(createTimestampObject(entry));
                   
                 }
@@ -100,8 +117,8 @@ function App() {
             }
 
             setWeatherData(days);
-            setCurrentDay(days[0]);
-            setCurrentTimestamp(days[0].timestamps[0]);
+            setSelectedDay(days[0]);
+            setSelectedTimestamp(days[0].timestamps[0]);
           })
   }
 
@@ -124,14 +141,13 @@ function App() {
         handleClick={searchCity}
         city={city}
       />
-      {weatherData &&
       <div className="day-previews">
         {dayPreviewElements}
-      </div>}
-      {currentDay &&
+      </div>
+      {selectedDay &&
         <DayDetails
-          day={currentDay}
-          timestamp={currentTimestamp}
+          day={selectedDay}
+          timestamp={selectedTimestamp}
           handleClick={selectTimestamp}
       />}
     </div>

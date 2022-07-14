@@ -9,7 +9,10 @@ export default function DayDetails({day, handleClick}) {
 
   const timestampElements = day.timestamps.map(timestamp => {
     return (
-      <div key={nanoid()} onClick={() => handleClick(timestamp)}>
+      <div
+        key={nanoid()}
+        onClick={() => handleClick(timestamp)}
+      >
         <h2>{getTimeLabel(timestamp.time)}</h2>
       </div>
     )
@@ -18,7 +21,7 @@ export default function DayDetails({day, handleClick}) {
 
   return (
     <div>
-      <h1>{day.date}</h1>
+      <h1>{`${day.weekday}, ${day.month} ${day.date}`}</h1>
       {timestampElements}
     </div>
   )
