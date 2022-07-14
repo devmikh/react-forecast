@@ -4,18 +4,29 @@ import axios from 'axios';
 import { nanoid } from 'nanoid';
 import Search from './components/Search';
 import DayPreview from './components/DayPreview';
+import DayDetails from './components/DayDetails';
 
 function App() {
 
   const [city, setCity] = React.useState("Coquitlam");
   const [weatherData, setWeatherData] = React.useState([]);
+  const [currentDay, setCurrentDay] = React.useState();
+  const [currentTimestamp, setCurrentTimestamp] = React.useState();
 
   function handleChange(event) {
     setCity(event.target.value);
   }
 
-  function handleClick() {
+  function searchCity() {
     getWeatherData();
+  }
+
+  function selectDay(day) {
+    setCurrentDay(day);
+  }
+
+  function selectTimestamp(timestamp) {
+    setCurrentTimestamp(timestamp);
   }
 
   function createTimestampObject(entry) {
@@ -26,8 +37,8 @@ function App() {
       clouds: entry.clouds.all,                   // percentage
       wind: entry.wind.speed,                     // meters per second
       precipitation: entry.pop * 100,             // percentage
-      humidity: entry.main.humidity,
-      icon: entry.weather[0].icon.slice(0, -1)              // percentage
+      humidity: entry.main.humidity,              // percentage
+      icon: entry.weather[0].icon.slice(0, -1)              
     };
     return timestamp;
   }
@@ -52,7 +63,6 @@ function App() {
                   // Day object is created with date and month taken from current timestamp
                   const day = {
                     date: currentTimestamp.getDate(),
-                    month: currentTimestamp.getMonth(),
                     timestamps: []
                   };
                   /*  Create timestamp object with all weather data related to this timestamp
@@ -71,7 +81,6 @@ function App() {
                 if (!days.some(day => day.date === currentTimestamp.getDate())) {
                   const day = {
                     date: currentTimestamp.getDate(),
-                    month: currentTimestamp.getMonth(),
                     timestamps: []
                   };
                   day.timestamps.push(createTimestampObject(entry));
@@ -91,6 +100,8 @@ function App() {
             }
 
             setWeatherData(days);
+            setCurrentDay(days[0]);
+            setCurrentTimestamp(days[0].timestamps[0]);
           })
   }
 
@@ -99,12 +110,10 @@ function App() {
   }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const dayPreviewElements = weatherData.map(day => {
-    const date = new Date(day.timestamps[0].time * 1000);
     return <DayPreview
             key={nanoid()}
-            weekday={date.getDay()}
-            date={date.getDate()}
-            timestamps={day.timestamps}
+            day={day}
+            handleClick={() => selectDay(day)}
           />;
   });
 
@@ -112,13 +121,19 @@ function App() {
     <div className="App">
       <Search
         handleChange={handleChange}
-        handleClick={handleClick}
+        handleClick={searchCity}
         city={city}
       />
       {weatherData &&
       <div className="day-previews">
         {dayPreviewElements}
       </div>}
+      {currentDay &&
+        <DayDetails
+          day={currentDay}
+          timestamp={currentTimestamp}
+          handleClick={selectTimestamp}
+      />}
     </div>
   );
 }

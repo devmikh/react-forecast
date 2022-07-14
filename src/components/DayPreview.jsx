@@ -1,26 +1,45 @@
-export default function DayPreview(props) {
+export default function DayPreview({day, handleClick}) {
 
-  const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const date = new Date(day.timestamps[0].time * 1000);
+
+  // Helper functions
+  function getMonthName() {
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    ];
+    return monthNames[date.getMonth()]
+  }
+
+  function getDate() {
+    return date.getDate();
+  }
+
+  function getWeekday() {
+    const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    return weekdays[date.getDay()];
+  }
 
   function getHighestTemperature() {
-    const temps = props.timestamps.map(timestamp => timestamp.temp);
+    const temps = day.timestamps.map(timestamp => timestamp.temp);
     return Math.max(...temps);
   }
 
   function getLowestTemperature() {
-    const temps = props.timestamps.map(timestamp => timestamp.temp);
+    const temps = day.timestamps.map(timestamp => timestamp.temp);
     return Math.min(...temps);
   }
 
-  function getAverageWeatherIcon() {
-    const icons = props.timestamps.map(timestamp => timestamp.icon);
-    console.log(icons);
-  }
-  getAverageWeatherIcon();
+  // function getAverageWeatherIcon() {
+  //   const icons = props.timestamps.map(timestamp => timestamp.icon);
+  //   // console.log(icons);
+  // }
+  // getAverageWeatherIcon();
+
+  
 
   return (
-    <div className="day-preview">
-      <h2>{`${weekdays[props.weekday]}, July ${props.date}`}</h2>
+    <div className="day-preview" onClick={handleClick}>
+      <h2>{`${getWeekday()}, ${getMonthName()} ${getDate()}`}</h2>
       <img
         className="day-preview--icon"
         src="https://openweathermap.org/img/wn/10d@4x.png"
