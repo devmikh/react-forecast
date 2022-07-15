@@ -11,18 +11,33 @@ export default function DayPreview({day, handleClick}) {
     return Math.min(...temps);
   }
 
-  // function getAverageWeatherIcon() {
-  //   const icons = props.timestamps.map(timestamp => timestamp.icon);
-  //   // console.log(icons);
-  // }
-  // getAverageWeatherIcon();
+  function getAverageWeatherIcon() {
+    const icons = day.timestamps.map(timestamp => timestamp.icon);
+    console.log(icons);
+    let mf = 1;
+    let m = 0;
+    let item;
+    for (let i = 0; i < icons.length; i++) {
+      for (let j = i; j < icons.length; j++) {
+        if (icons[i] === icons[j]) {
+          m++;
+        }
+        if (mf < m) {
+          mf = m;
+          item = icons[i];
+        }
+      }
+      m = 0;
+    }
+    return item;
+  }
 
   return (
     <div className="day-preview" onClick={handleClick}>
       <h2>{`${day.weekday}, ${day.month} ${day.date}`}</h2>
       <img
         className="day-preview--icon"
-        src="https://openweathermap.org/img/wn/10d@4x.png"
+        src={`https://openweathermap.org/img/wn/${getAverageWeatherIcon()}d@4x.png`}
         alt="weather icon"/>
       <div className="day-preview--temperature">
         <h4 className="day-preview--temperature--highest">{getHighestTemperature()}&#8451;</h4>
