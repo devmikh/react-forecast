@@ -23,6 +23,7 @@ function App() {
 
   function selectDay(day) {
     setSelectedDay(day);
+    setSelectedTimestamp(day.timestamps[0]);
   }
 
   function selectTimestamp(timestamp) {
@@ -48,8 +49,8 @@ function App() {
       temp: Math.round(entry.main.temp - 273.15), // celsius
       description: entry.weather[0].description,
       clouds: entry.clouds.all,                   // percentage
-      wind: entry.wind.speed,                     // meters per second
-      precipitation: entry.pop * 100,             // percentage
+      wind: Math.round(entry.wind.speed * 3.6),   // km/h
+      precipitation: Math.round(entry.pop * 100), // percentage
       humidity: entry.main.humidity,              // percentage
       icon: entry.weather[0].icon.slice(0, -1)              
     };
@@ -78,6 +79,8 @@ function App() {
                     date: currentDate.getDate(),
                     month: getMonthName(currentDate),
                     weekday: getWeekday(currentDate),
+                    city: response.data.city.name,
+                    country: response.data.city.country,
                     timestamps: []
                   };
                   /*  Create timestamp object with all weather data related to this timestamp
@@ -98,6 +101,8 @@ function App() {
                     date: currentDate.getDate(),
                     month: getMonthName(currentDate),
                     weekday: getWeekday(currentDate),
+                    city: response.data.city.name,
+                    country: response.data.city.country,
                     timestamps: []
                   };
                   day.timestamps.push(createTimestampObject(entry));
@@ -147,7 +152,7 @@ function App() {
       {selectedDay &&
         <DayDetails
           day={selectedDay}
-          timestamp={selectedTimestamp}
+          selectedTimestamp={selectedTimestamp}
           handleClick={selectTimestamp}
       />}
     </div>

@@ -46,3 +46,35 @@
   display: flex;
   gap: 20px;
 }
+
+.day-details {
+  align-self: center;
+  width: 80%;
+  background-color: rgb(197, 224, 233);
+}
+
+.day-details--header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.day-details--header--overview {
+  width: 50%;
+  display: flex;
+  gap: 40px;
+}
+
+.day-details--header--location {
+  width: 10%;
+}
+
+.day-details--timestamps {
+  display: flex;
+  justify-content: space-around;
+}
+
+.day-details--timestamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
