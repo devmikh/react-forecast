@@ -13,7 +13,6 @@ export default function DayPreview({day, handleClick}) {
 
   function getAverageWeatherIcon() {
     const icons = day.timestamps.map(timestamp => timestamp.icon);
-    console.log(icons);
     let mf = 1;
     let m = 0;
     let item;

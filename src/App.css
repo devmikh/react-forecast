@@ -3,9 +3,11 @@
   flex-direction: column;
   /* align-items: center; */
   gap: 50px;
+  background-color: #e3f6f5;
 }
 
 .search {
+  margin-top: 20px;
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -14,12 +16,24 @@
 .search-input {
   font-size: 20px;
   height: 50px;
+  border-radius: 30px 30px 0 0;
+  border: 1px solid grey;
+  text-align: center;
 }
 
 .search-button {
   width: 300px;
   height: 50px;
   font-size: 20px;
+  border: none;
+  border-radius: 0 0 30px 30px;
+  background-color: #272343;
+  color: white;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #463f75;
 }
 
 .day-previews {
@@ -30,8 +44,8 @@
 .day-preview {
   height: 300px;
   width: 300px;
-  border: 1px solid black;
-  background-color: rgb(197, 224, 233);
+  background-color: #bae8e8;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +64,7 @@
 .day-details {
   align-self: center;
   width: 80%;
-  background-color: rgb(197, 224, 233);
+  background-color: #bae8e8;
 }
 
 .day-details--header {
