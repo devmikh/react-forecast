@@ -34,7 +34,7 @@ export default function DayDetails({day, selectedTimestamp, handleClick}) {
     <div className="day-details">
       <div className="day-details--header">
         <div className="day-details--header--overview">
-          <img src={`http://openweathermap.org/img/wn/${selectedTimestamp.icon}d@4x.png`} alt="weather-icon" />
+          <img className="day-details--header--overview--icon" src={`http://openweathermap.org/img/wn/${selectedTimestamp.icon}d@4x.png`} alt="weather-icon" />
           <div className="day-details--header--overview--temperature-description">
             <p className="day-details--header--overview--temperature">{selectedTimestamp.temp > 0 ? `+${selectedTimestamp.temp}` : selectedTimestamp.temp}&#8451;</p>
             <p className="day-details--header--overview--description">{selectedTimestamp.description}</p>

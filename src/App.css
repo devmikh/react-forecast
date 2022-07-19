@@ -205,19 +205,94 @@ body {
   }
 
   .day-preview--time {
-    width: 160px;
+    width: 120px;
     text-align: left;
+    margin-left: 20px;
   }
 
   .day-preview--temperature {
     font-size: 20px;
   }
 
-  .day-details--header--overview {
-    flex-direction: column;
+  .day-details {
+    padding-top: 20px;
+  }
+
+  .day-details--header--overview--icon {
+    display: none;
+  }
+
+  .day-details--header--overview--temperature-description {
+    margin-left: 20px;
   }
 
   .day-details--timestamps {
+    margin-top: 40px;
     flex-wrap: wrap;
   }
+
+  .search {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 80%;
+  }
+
+  .day-details--timestamps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+  .day-preview {
+    width: 100%;
+  }
+
+  .day-preview--temperature {
+    flex-direction: column;
+    padding-right: 12px;
+  }
+
+  .day-details {
+    width: 100%;
+  }
+
+  .day-details--header {
+    align-items: flex-start;
+  }
+
+  .day-details--header--overview {
+    flex-direction: column;
+    padding-left: 20px;
+    width: 40%;
+  }
+
+  .day-details--header--overview--data {
+    border-left: none;
+    padding: 0;
+    padding-top: 10px;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .day-details--header--overview--temperature-description {
+    margin-left: 0;
+    padding-right: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EC6E4C;
+    width: 100%;
+  }
+
+  .day-details--header--location--city {
+    align-self: top;
+  }
+
+  .day-details--timestamp {
+    width: 80px;
+  }
+  
 }
