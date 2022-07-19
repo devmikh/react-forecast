@@ -136,6 +136,7 @@ function App() {
             key={nanoid()}
             day={day}
             handleClick={() => selectDay(day)}
+            isSelected={day === selectedDay ? true : false}
           />;
   });
 

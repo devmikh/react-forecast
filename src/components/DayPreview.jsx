@@ -1,4 +1,4 @@
-export default function DayPreview({day, handleClick}) {
+export default function DayPreview({day, handleClick, isSelected}) {
 
 
   function getHighestTemperature() {
@@ -32,15 +32,18 @@ export default function DayPreview({day, handleClick}) {
   }
 
   return (
-    <div className="day-preview" onClick={handleClick}>
-      <h2>{`${day.weekday}, ${day.month} ${day.date}`}</h2>
+    <div className={`day-preview ${isSelected ? "day-preview-active" : ""}`} onClick={handleClick}>
+      <div className="day-preview--time">
+        <p>{day.weekday}</p>
+        <p>{`${day.month} ${day.date}`}</p>
+      </div>
       <img
         className="day-preview--icon"
         src={`https://openweathermap.org/img/wn/${getAverageWeatherIcon()}d@4x.png`}
         alt="weather icon"/>
       <div className="day-preview--temperature">
-        <h4 className="day-preview--temperature--highest">{getHighestTemperature()}&#8451;</h4>
-        <h4 className="day-preview--temperature--highest">{getLowestTemperature()}&#8451;</h4>
+        <p className="day-preview--temperature--highest">{getHighestTemperature()}&#8451;</p>
+        <p className="day-preview--temperature--lowest">{getLowestTemperature()}&#8451;</p>
       </div>
       
     </div>

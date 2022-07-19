@@ -20,7 +20,7 @@ export default function DayDetails({day, selectedTimestamp, handleClick}) {
       <div
         key={nanoid()}
         onClick={() => handleClick(timestamp)}
-        className="day-details--timestamp"
+        className={`day-details--timestamp ${timestamp === selectedTimestamp ? "day-details--timestamp-selected" : ""}`}
         style={timestamp === selectedTimestamp ? boldStyles : regStyles}
       >
         <img src={`http://openweathermap.org/img/wn/${timestamp.icon}d@2x.png`} alt="weather icon" />
@@ -35,20 +35,20 @@ export default function DayDetails({day, selectedTimestamp, handleClick}) {
       <div className="day-details--header">
         <div className="day-details--header--overview">
           <img src={`http://openweathermap.org/img/wn/${selectedTimestamp.icon}d@4x.png`} alt="weather-icon" />
-          <div>
-            <h2>{selectedTimestamp.temp > 0 ? `+${selectedTimestamp.temp}` : selectedTimestamp.temp}</h2>
-            <h2>{selectedTimestamp.description}</h2>
+          <div className="day-details--header--overview--temperature-description">
+            <p className="day-details--header--overview--temperature">{selectedTimestamp.temp > 0 ? `+${selectedTimestamp.temp}` : selectedTimestamp.temp}&#8451;</p>
+            <p className="day-details--header--overview--description">{selectedTimestamp.description}</p>
           </div>
           <div className="day-details--header--overview--data">
-            <h3>Precipitation: {selectedTimestamp.precipitation}%</h3>
-            <h3>Humidity: {selectedTimestamp.humidity}%</h3>
-            <h3>Wind: {selectedTimestamp.wind} km/h</h3>
+            <p>Precipitation: {selectedTimestamp.precipitation}%</p>
+            <p>Humidity: {selectedTimestamp.humidity}%</p>
+            <p>Wind: {selectedTimestamp.wind} km/h</p>
           </div>
         </div>
         <div className="day-details--header--location">
-          <h3>{day.city}, {day.country}</h3>
-          <h3>{`${day.weekday}, ${day.month} ${day.date}`}</h3>
-          <h3>{getTimeLabel(selectedTimestamp.time)}</h3>
+          <p className="day-details--header--location--city">{day.city}, {day.country}</p>
+          <p>{`${day.weekday}, ${day.month} ${day.date}`}</p>
+          <p>{getTimeLabel(selectedTimestamp.time)}</p>
         </div>
       </div>
       

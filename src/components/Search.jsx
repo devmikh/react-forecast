@@ -1,4 +1,6 @@
 import React from "react";
+import { FaSearchLocation } from 'react-icons/fa';
+
 
 export default function Search(props) {
 
@@ -15,7 +17,7 @@ export default function Search(props) {
       <button
         onClick={props.handleClick}
         className="search-button"
-      >Forecast!
+      ><FaSearchLocation />
       </button>
     </div>
   )
