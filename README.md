@@ -1,5 +1,7 @@
 # React Forecast
 
+[Try it out here](https://devmikh.github.io/react-forecast/)
+
 ## Description
 
 Forecast is a minimalistic weather application, which utilizes OpenWeather API to get weather forecasts.
