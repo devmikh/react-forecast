@@ -8,7 +8,7 @@ import DayDetails from './components/DayDetails';
 
 function App() {
 
-  const [city, setCity] = React.useState("Coquitlam");
+  const [city, setCity] = React.useState("London");
   const [weatherData, setWeatherData] = React.useState([]);
   const [selectedDay, setSelectedDay] = React.useState();
   const [selectedTimestamp, setSelectedTimestamp] = React.useState();

@@ -9,7 +9,6 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  gap: 50px;
 }
 
 .search {
@@ -17,6 +16,7 @@ body {
   align-self: center;
   display: flex;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .search-input {
@@ -54,6 +54,7 @@ body {
   justify-content: space-between;
   width: 70%;
   align-self: center;
+  margin-bottom: 50px;
 }
 
 .day-preview {
