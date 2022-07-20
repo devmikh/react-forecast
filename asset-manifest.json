@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-forecast/static/css/main.6afdf1e7.css",
+    "main.js": "/react-forecast/static/js/main.43b35b1b.js",
+    "index.html": "/react-forecast/index.html",
+    "main.6afdf1e7.css.map": "/react-forecast/static/css/main.6afdf1e7.css.map",
+    "main.43b35b1b.js.map": "/react-forecast/static/js/main.43b35b1b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6afdf1e7.css",
+    "static/js/main.43b35b1b.js"
+  ]
+}
